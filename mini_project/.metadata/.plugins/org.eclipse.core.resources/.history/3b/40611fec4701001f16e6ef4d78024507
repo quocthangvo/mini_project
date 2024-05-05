@@ -1,0 +1,46 @@
+package DTO;
+
+public class GenresDTO {
+
+	private String name;
+
+	private String description;
+
+	private int book_id;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getBook_id() {
+		return book_id;
+	}
+
+	public void setBook_id(int book_id) {
+		this.book_id = book_id;
+	}
+
+	public GenresDTO() {
+
+	}
+
+	public GenresDTO(String name, String description, int book_id) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.book_id = book_id;
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.vti.main.Models;
+
+public class ComponentConfiguration {
+return new ModelMapper()
+}

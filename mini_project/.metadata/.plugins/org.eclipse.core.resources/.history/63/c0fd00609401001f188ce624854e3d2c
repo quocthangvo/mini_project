@@ -1,0 +1,36 @@
+package DTO;
+
+import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@RequiredArgsConstructor
+@SuppressWarnings("unused")
+public class BookDTO {
+
+	private String name;
+
+	private String price;
+
+	private String description;
+
+	@NonNull
+	private String genreName;
+
+	private int genre_id;
+
+	public BookDTO() {
+
+	}
+
+	public BookDTO(String name, String price, String description, String genreName, int genre_id) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.genreName = genreName;
+		this.genre_id = genre_id;
+	}
+
+}

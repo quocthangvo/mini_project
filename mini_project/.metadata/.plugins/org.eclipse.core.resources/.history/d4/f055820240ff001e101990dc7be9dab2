@@ -1,0 +1,10 @@
+package Services;
+
+import java.util.List;
+
+import Models.Book;
+
+public class IBookService {
+	List<Book> getAllBooks();
+
+}

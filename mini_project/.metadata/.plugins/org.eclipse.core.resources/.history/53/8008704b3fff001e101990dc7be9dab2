@@ -1,0 +1,5 @@
+package Repositorys;
+
+public class IBookRepository {
+
+}

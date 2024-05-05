@@ -1,0 +1,76 @@
+package DTO;
+
+import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@RequiredArgsConstructor
+@SuppressWarnings("unused")
+public class BookDTO {
+
+	private String name;
+
+	private String price;
+
+	private String description;
+
+	@NonNull
+	private String genreName;
+
+	private int genre_id;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getGenre_id() {
+		return genre_id;
+	}
+
+	public void setGenre_id(int genre_id) {
+		this.genre_id = genre_id;
+	}
+
+	public String getGenresName() {
+		return genreName;
+	}
+
+	public void setGenresName(String genresName) {
+		this.genreName = genresName;
+	}
+
+	public BookDTO() {
+
+	}
+
+	public BookDTO(String name, String price, String description, String genreName, int genre_id) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.genreName = genreName;
+		this.genre_id = genre_id;
+	}
+
+}

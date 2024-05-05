@@ -1,0 +1,5 @@
+package com.vti.main.Repositories;
+
+public class IGenresRepository {
+
+}

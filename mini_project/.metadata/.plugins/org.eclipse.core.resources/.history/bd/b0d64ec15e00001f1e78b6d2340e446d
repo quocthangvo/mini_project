@@ -1,0 +1,10 @@
+package com.vti.main.Services;
+
+import java.util.List;
+
+import com.vti.main.Models.Book;
+
+public interface IBookService {
+	List<Book> getAllBooks();
+
+}

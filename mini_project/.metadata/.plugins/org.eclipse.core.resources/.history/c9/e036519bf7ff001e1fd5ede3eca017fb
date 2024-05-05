@@ -1,0 +1,19 @@
+package Services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import Models.Book;
+import Repositorys.IBookRepository;
+
+@Service
+public class BookService implements IBookService{
+	@Autowired
+	private IBookRepository repository;
+
+	public List<Book> getAllBooks() {
+		return repository.findAll();
+	}
+}

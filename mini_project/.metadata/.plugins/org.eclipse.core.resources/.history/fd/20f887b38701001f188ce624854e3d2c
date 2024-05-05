@@ -1,0 +1,102 @@
+package com.vti.main.Controllers;
+
+import java.awt.print.Pageable;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.vti.main.DataNotFoundException.DataNotFoundException;
+import com.vti.main.Models.Book;
+import com.vti.main.Services.IBookService;
+
+import DTO.BookDTO;
+
+@RestController
+@RequestMapping(value = "api/v1/books")
+public class BookController {
+	@Autowired
+	private IBookService service;
+
+	private ModelMapper modelMapper;
+
+	@GetMapping()
+	public List<BookDTO> getAllBooks() {
+//		List<Book> entities = service.getAllBooks();
+//		List<BookDTO> dtos = new ArrayList<>();
+//
+//		for (Book entity : entities) {
+//			String genreName = ""; 
+//			int genreId = 0; 
+//			
+//			if (entity.getGenres() != null) {
+//				genreName = entity.getGenres().getName();
+//				genreId = entity.getGenres().getId();
+//			}
+//
+//			BookDTO dto = new BookDTO(entity.getName(), entity.getPrice(), entity.getDescription(), genreName, genreId);
+//			dtos.add(dto);
+//		}
+
+		List<Book> entities = service.getAllBooks();
+
+		List<BookDTO> dtos = modelMapper.map(entities, new TypeToken<List<BookDTO>>() {
+		}.getType());
+		return dtos;
+	}
+
+	@GetMapping
+	public Page<BookDTO> getAllBooks(Pageable pageable) {
+		Page<Book> entityPages = service.getAllBooks(pageable);
+
+		List<BookDTO> dtos = modelMapper.map(entityPages.getContent(), new TypeToken<List<BookDTO>>() {
+		}.getType());
+
+		Page<BookDTO> dtoPages = new PageImpl<>(dtos, pageable, entityPages.getTotalElements());
+		return dtoPages;
+	}
+
+	@GetMapping(value = "/{book_id}")
+	public ResponseEntity<?> getBookById(@PathVariable(name = "book_id") int id) {
+		try {
+			return ResponseEntity.ok(service.getBookById(id));
+		} catch (DataNotFoundException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@PostMapping()
+	public ResponseEntity<?> createBook(@RequestBody BookDTO bookDTO) {
+
+		try {
+			Book book = service.createBook(bookDTO);
+			return ResponseEntity.ok(book);
+
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@DeleteMapping(value = "/delete/{book_id}")
+	public ResponseEntity<String> deleteBookById(@PathVariable(name = "book_id") int id) {
+		try {
+			service.deleteBookById(id);
+			return ResponseEntity.ok("Book deleted successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete book");
+		}
+	}
+
+}
